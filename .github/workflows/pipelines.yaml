@@ -1,0 +1,49 @@
+name: Pipelines
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  frontend:
+    name: Frontend CI/CD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: frontend
+
+      - name: Run frontend tests
+        run: npm test
+        working-directory: frontend
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: frontend
+
+      # Add deployment steps for frontend (e.g., deploy to hosting service)
+
+  backend:
+    name: Backend CI/CD
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: pip3 install flask flask_cors
+        working-directory: backend
+
+      - name: Run backend tests
+        run: python3 app.py
+        working-directory: backend
+
+      # Add deployment steps for backend (e.g., deploy to server)
+
+  # You can add more jobs for other tasks if needed
